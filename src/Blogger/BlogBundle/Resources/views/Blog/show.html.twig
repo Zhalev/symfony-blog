@@ -1,4 +1,4 @@
-{# src/Blogger/BlogBundle/Resouces/views/Blog/show.html.twig #}
+{# src/Blogger/BlogBundle/Resouces/views/Blog/form.html.twig #}
 {% extends '@BloggerBlog/layout.html.twig' %}
 
 {% block title %}{{ blog.title }}{% endblock %}
@@ -14,4 +14,12 @@
             <p>{{ blog.blog }}</p>
         </div>
     </article>
+    <section class="comments" id="comments">
+        <section class="previous-comments">
+            <h3>Comments</h3>
+            {% include '@BloggerBlog/Comment/index.html.twig' with { 'comments': comments } %}
+        </section>
+        <h3>Add Comment</h3>
+        {{ render(controller('BloggerBlogBundle:Comment:new',{ 'blog_id': blog.id })) }}
+    </section>
 {% endblock %}
