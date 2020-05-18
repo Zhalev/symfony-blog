@@ -1,6 +1,4 @@
 <?php
-
-
 namespace Blogger\BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,11 +17,11 @@ class CommentController extends Controller
 
         $comment = new Comment();
         $comment->setBlog($blog);
-        $form = $this->createForm(CommentType::class, $comment);
+        $form   = $this->createForm(CommentType::class, $comment);
 
         return $this->render('@BloggerBlog/Comment/form.html.twig', array(
             'comment' => $comment,
-            'form' => $form->createView()
+            'form'   => $form->createView()
         ));
     }
 
@@ -31,12 +29,16 @@ class CommentController extends Controller
     {
         $blog = $this->getBlog($blog_id);
 
-        $comment = new Comment();
+        $comment  = new Comment();
         $comment->setBlog($blog);
-        $form = $this->createForm(CommentType::class, $comment);
+        $form    = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $em = $this->getDoctrine()
+                ->getManager();
+            $em->persist($comment);
+            $em->flush();
             // TODO: Persist the comment entity
 
             return $this->redirect($this->generateUrl('BloggerBlogBundle_blog_show', array(
@@ -47,7 +49,7 @@ class CommentController extends Controller
 
         return $this->render('@BloggerBlog/Comment/create.html.twig', array(
             'comment' => $comment,
-            'form' => $form->createView()
+            'form'    => $form->createView()
         ));
     }
 

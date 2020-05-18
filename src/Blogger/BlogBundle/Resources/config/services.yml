@@ -5,3 +5,5 @@ services:
   # Fixtures services
   Blogger\BlogBundle\DataFixtures\ORM\BlogFixtures:
     tags: [doctrine.fixture.orm]
+  Blogger\BlogBundle\DataFixtures\ORM\CommentFixtures:
+    tags: [doctrine.fixture.orm]
