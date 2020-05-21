@@ -32,7 +32,8 @@ framework:
     assets: ~
     php_errors:
         log: true
-
+    templating:
+        engines: [twig]
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
@@ -71,3 +72,10 @@ swiftmailer:
 sensio_framework_extra:
    router:
         annotations: false
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    bundles:    [BloggerBlogBundle]
+    filters:
+        cssrewrite: ~
